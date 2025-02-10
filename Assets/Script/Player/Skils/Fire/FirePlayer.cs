@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirePlayer : Skil
 {
@@ -13,22 +14,30 @@ public class FirePlayer : Skil
     [SerializeField]
     private GameObject fireBall;
     Coroutine coroutine;
+    [SerializeField]
+    private Image skilimg1;
+    [SerializeField]
+    private Image skilimg2;
 
     void Start()
     {
-        this.cooltime = 1f;
+        this.cooltime1 = 1f;
+        this.cooltime2 = 7f;
         this.isPassive = true;
         if (player == null)
         {
             player = FindObjectOfType<Player>();
           
         }
+
     }
-   
+
     private void FixedUpdate()
     {
         if (isFireSp == true)
             Instantiate(fireBlanket, new Vector2(player.transform.position.x, player.transform.position.y-1), Quaternion.identity);
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -45,7 +54,9 @@ public class FirePlayer : Skil
     {
         player.stats.isShoting = false;
         Instantiate(fireBall, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(cooltime);
+        collimage(this.cooltime1, skilimg1);
+
+        yield return new WaitForSeconds(cooltime1);
         player.stats.isShoting = true;
     }
 
@@ -53,8 +64,12 @@ public class FirePlayer : Skil
     {
         player.stats.isSkil2 = false;
         isFireSp = true;
-        yield return new WaitForSeconds(cooltime);
-        player.stats.isSkil2 = true;
+        yield return new WaitForSeconds(2);
         isFireSp = false;
+
+        yield return new WaitForSeconds(cooltime2);
+        collimage(this.cooltime2, skilimg2);
+
+        player.stats.isSkil2 = true;
     }
 }

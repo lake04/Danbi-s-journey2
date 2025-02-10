@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Net;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerStats
 {
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
     private bool isJump;
     public int jumpPower = 5;
 
+    #region АјАн 
     [Header("Attack")]
     [SerializeField]
     private Vector2 boxSize;
@@ -56,9 +58,13 @@ public class Player : MonoBehaviour
     private Transform rigntPos;
     [SerializeField]
     private Transform leftPos;
+    #endregion
+    [SerializeField]
+    private GameObject ball;
+    [SerializeField]
+    private Image a1;
 
-    public GameObject ball;
-   
+    private float cooltime;
 
     private void Awake()
     {
@@ -77,12 +83,13 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
-        if(Input.GetKeyDown(KeyCode.Q) && stats.isShoting)
+        if(Input.GetKeyDown(KeyCode.Q) && stats.isShoting == true)
         {
             
             if (type == PlayerType.basic)
             {
-                StartCoroutine(skil1());
+                //StartCoroutine(basePlayer.skil1());
+                skil1();
             }
             if (type == PlayerType.fire)
             {
@@ -90,7 +97,7 @@ public class Player : MonoBehaviour
             }
         }
         
-        if(Input.GetKeyDown(KeyCode.E) && stats.isSkil2)
+        if(Input.GetKeyDown(KeyCode.E) && stats.isSkil2 == true)
         {
             Debug.Log("skil2");
             if(type == PlayerType.basic)
@@ -126,8 +133,8 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        if (!isJump)
-            return;
+        if (!isJump) return;
+
         rigidbody2D.velocity = Vector2.zero;
 
         Vector2 jumpVelocity = new Vector2(0, jumpPower);
@@ -170,15 +177,35 @@ public class Player : MonoBehaviour
         else
         {
             stats.attackspeed -= Time.deltaTime;
-
         }
     }
-    public IEnumerator skil1()
+
+    public  void skil1()
     {
-        stats.isShoting = false;
         Instantiate(ball, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(2.5f);
-        stats.isShoting = true;
+
+        collimage(5, a1, stats.isShoting);
+
+    }
+   void collimage(float cooltimeMax, Image disble,bool isSkile)
+    {
+        Debug.Log("coolImage");
+        cooltime = cooltimeMax;
+        isSkile = stats.isShoting = false;
+        Debug.Log($"{isSkile}");
+
+        while (cooltime > 0.0f)
+        {
+            cooltime -= Time.deltaTime;
+            disble.fillAmount = cooltime / cooltimeMax;
+            Debug.Log($"{isSkile}");
+            if (cooltime <= 0)
+            {
+                isSkile = stats.isShoting = true;
+                Debug.Log($"{isSkile}");
+                break;
+            }
+        }
     }
     #endregion
 

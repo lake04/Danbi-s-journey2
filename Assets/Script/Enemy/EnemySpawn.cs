@@ -15,10 +15,7 @@ public class EnemySpawn : MonoBehaviour
     {
 
         area = GetComponent<BoxCollider2D>();
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    var enemy = _pool.Get();
-        //}
+      
         StartCoroutine(EnanySpawn());
 
     }
@@ -33,7 +30,6 @@ public class EnemySpawn : MonoBehaviour
     {
         Vector3 spawnPos = GetRandomPosition();
         Enemy enemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity).GetComponent<Enemy>();
-        enemy.SetManagePool(_pool);
         return enemy;
     }
 
