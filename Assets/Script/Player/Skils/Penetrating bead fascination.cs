@@ -8,7 +8,7 @@ public class Penetratingbeadfascination : MonoBehaviour
     private Rigidbody2D rb;
     public float speed = 10f;
     public float maxDistance = 5f;
-    public float fascinationCooltime = 10f;
+    public float fascinationCooltime = 5f;
     public SpriteRenderer spriteRenderer;
     public Player playerst;
 
@@ -50,6 +50,7 @@ public class Penetratingbeadfascination : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("매혹");
+            playerst.type = PlayerType.basic;
             Destroy(gameObject);
         }
         if (collision.gameObject.CompareTag("FireEnemy"))

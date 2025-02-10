@@ -10,7 +10,7 @@ public class FireFlor : Skil
     private void Awake()
     {
         player = FindAnyObjectByType<Player>();
-        this.cooltime = 2;
+        this.cooltime1 = 2;
     }
     void Start()
     {
@@ -38,6 +38,6 @@ public class FireFlor : Skil
                 enemy.TakeDamage(player.stats.damag);
             }
         }
-        yield return new WaitForSeconds(cooltime);
+        yield return new WaitForSeconds(cooltime1);
     }
 }

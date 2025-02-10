@@ -9,7 +9,6 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Enemy : MonoBehaviour
 {
-    private IObjectPool<Enemy> _ManagerPool;
     [SerializeField]
     public BasePlayer _Player;
 
@@ -47,7 +46,6 @@ public class Enemy : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
     }
 
-
     void Start()
     {
         player = FindAnyObjectByType<Player>();
@@ -69,22 +67,18 @@ public class Enemy : MonoBehaviour
         }
 
         sp.flipX = true;
-
     }
-    public void SetManagePool(IObjectPool<Enemy> pool)
-    {
-        _ManagerPool = pool;
-    }
+  
 
     public void DestroyEnemy()
     {
         if (player.type == PlayerType.basic)
         {
            StartCoroutine(_Player.PassiveSkill());
-            _ManagerPool.Release(this);
+            Destroy(this.gameObject);
         }
-        else _ManagerPool.Release(this);
-     
+        else Destroy(this.gameObject);
+
     }
 
     public IEnumerator FireDamage()
@@ -107,6 +101,10 @@ public class Enemy : MonoBehaviour
             hp -= damage;
             Debug.Log("TakeDamage");
             StartCoroutine(SkillDamagedRoutine(1f));
+            if(hp <= 0)
+        {
+                DestroyEnemy();
+            }
         }
         if(hp <=0)
         {
