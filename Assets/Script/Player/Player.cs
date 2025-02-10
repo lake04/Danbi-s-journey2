@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -59,12 +60,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform leftPos;
     #endregion
-    [SerializeField]
-    private GameObject ball;
-    [SerializeField]
-    private Image a1;
 
-    private float cooltime;
 
     private void Awake()
     {
@@ -89,11 +85,11 @@ public class Player : MonoBehaviour
             if (type == PlayerType.basic)
             {
                 //StartCoroutine(basePlayer.skil1());
-                skil1();
+                basePlayer.skil1();
             }
             if (type == PlayerType.fire)
             {
-                StartCoroutine(firePlayer.skil1());
+               firePlayer.skil1();
             }
         }
         
@@ -110,6 +106,7 @@ public class Player : MonoBehaviour
             }
         }
         attack();
+        Debug.Log($"isShoting:{stats.isShoting}");
     }
     void FixedUpdate()
     {
@@ -180,33 +177,8 @@ public class Player : MonoBehaviour
         }
     }
 
-    public  void skil1()
-    {
-        Instantiate(ball, transform.position, Quaternion.identity);
+    
 
-        collimage(5, a1, stats.isShoting);
-
-    }
-   void collimage(float cooltimeMax, Image disble,bool isSkile)
-    {
-        Debug.Log("coolImage");
-        cooltime = cooltimeMax;
-        isSkile = stats.isShoting = false;
-        Debug.Log($"{isSkile}");
-
-        while (cooltime > 0.0f)
-        {
-            cooltime -= Time.deltaTime;
-            disble.fillAmount = cooltime / cooltimeMax;
-            Debug.Log($"{isSkile}");
-            if (cooltime <= 0)
-            {
-                isSkile = stats.isShoting = true;
-                Debug.Log($"{isSkile}");
-                break;
-            }
-        }
-    }
     #endregion
 
     public void HpDown(int damgae)

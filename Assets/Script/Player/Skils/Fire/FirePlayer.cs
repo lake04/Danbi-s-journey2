@@ -21,7 +21,7 @@ public class FirePlayer : Skil
 
     void Start()
     {
-        this.cooltime1 = 1f;
+        this.cooltime1 = 4f;
         this.cooltime2 = 7f;
         this.isPassive = true;
         if (player == null)
@@ -50,14 +50,11 @@ public class FirePlayer : Skil
         }
 
     }
-    protected internal override IEnumerator skil1()
+    protected internal override void skil1()
     {
-        player.stats.isShoting = false;
         Instantiate(fireBall, transform.position, Quaternion.identity);
-        collimage(this.cooltime1, skilimg1);
+        StartCoroutine(collimage(this.cooltime1, skilimg1, value => player.stats.isShoting = value));
 
-        yield return new WaitForSeconds(cooltime1);
-        player.stats.isShoting = true;
     }
 
     protected internal override IEnumerator skil2()
@@ -68,7 +65,7 @@ public class FirePlayer : Skil
         isFireSp = false;
 
         yield return new WaitForSeconds(cooltime2);
-        collimage(this.cooltime2, skilimg2);
+        StartCoroutine(collimage(this.cooltime2, skilimg2, value => isSkil2 = value));
 
         player.stats.isSkil2 = true;
     }
