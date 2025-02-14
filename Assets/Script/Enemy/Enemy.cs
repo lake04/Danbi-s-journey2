@@ -29,6 +29,11 @@ public class Enemy : MonoBehaviour
     public int damage;
     float direction;
     private float lastDirection;
+
+    [SerializeField]
+    private GameObject fireEffect;
+    [SerializeField]
+    private AudioSource fireSound;
     #endregion
 
     #region 불 데미지 관련
@@ -44,11 +49,17 @@ public class Enemy : MonoBehaviour
         player = FindAnyObjectByType<Player>();
         _Player = FindAnyObjectByType<BasePlayer>();
         sp = GetComponent<SpriteRenderer>();
+        fireSound = GetComponent<AudioSource>();
     }
 
     void Start()
     {
-       
+        player = FindAnyObjectByType<Player>();
+        hp = maxHp;
+        rigidbody2D = GetComponent<Rigidbody2D>();
+        player = FindAnyObjectByType<Player>();
+        _Player = FindAnyObjectByType<BasePlayer>();
+        sp = GetComponent<SpriteRenderer>();
     }
 
     
@@ -67,21 +78,23 @@ public class Enemy : MonoBehaviour
 
     public void DestroyEnemy()
     {
-        if (player.type == PlayerType.basic)
-        {
-           StartCoroutine(_Player.PassiveSkill());
             Destroy(this.gameObject);
-        }
-        else Destroy(this.gameObject);
     }
 
     public IEnumerator FireDamage()
     {
         Debug.Log("FireDamage");
+        if (fireSound.isPlaying == false)
+        {
+            fireSound.Play();
+        }
         while (true)
         {
             if (this.maxFireCount <= this.fireCount) break;
             this.TakeDamage(0.5f);
+            Instantiate(fireEffect, new Vector2(transform.position.x, transform.position.y - 1), Quaternion.identity);
+           
+            
             yield return new WaitForSeconds(1.2f);
             this.fireCount++;
         }
@@ -92,13 +105,15 @@ public class Enemy : MonoBehaviour
     {
         if (hp >0)
         {
+            if (hp <= 0)
+            {
+                //if(player.type == PlayerType.basic) { StartCoroutine(_Player.PassiveSkill()); }
+                DestroyEnemy();
+            }
             hp -= damage;
             Debug.Log("TakeDamage");
             StartCoroutine(SkillDamagedRoutine(1f));
-            if(hp <= 0)
-        {
-                DestroyEnemy();
-            }
+           
         }
         if(hp <=0)
         {

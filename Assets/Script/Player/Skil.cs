@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,28 +19,29 @@ public class Skil : MonoBehaviour
         yield return new WaitForSeconds(cooltime1);
     }
 
-    protected virtual internal IEnumerator skil1()
+    protected virtual internal void skil1()
     {
-        yield return new WaitForSeconds(cooltime1);
+
     }
 
     protected virtual internal IEnumerator skil2()
     {
         yield return new WaitForSeconds(cooltime2);
     }
-    protected internal virtual void collimage(float cooltimeMax, Image disble)
+    protected internal virtual IEnumerator collimage(float cooltimeMax, Image disble, Action<bool> isSkil)
     {
-        cooltime1= cooltimeMax;
+        Debug.Log("coolImage");
+        float cooltime1 = cooltimeMax;
+        isSkil(false); 
+
         while (cooltime1 > 0.0f)
         {
             cooltime1 -= Time.deltaTime;
             disble.fillAmount = cooltime1 / cooltimeMax;
-
-            if (cooltime1 <= 0)
-            {
-                break;
-            }
+            yield return null;
         }
+
+        isSkil(true); 
     }
 }
 
