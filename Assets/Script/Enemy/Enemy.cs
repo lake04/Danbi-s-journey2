@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UIElements;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -65,13 +68,7 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        Move();
-
-        if (direction != 0)
-        {
-            lastDirection = direction;
-        }
-
+     
         sp.flipX = true;
     }
   
@@ -130,18 +127,14 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, isLayer);
-        if (hit.collider != null)
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, distance,isLayer);
+        Debug.Log($"{hit.collider.tag}");
+        Vector3 targetPosition = hit.collider.transform.position;
+       
+        if (hit.collider.CompareTag("Player"))  
         {
-            Vector3 targetPosition = hit.collider.transform.position;
+        this.transform.position = Vector2.MoveTowards(this.transform.position,targetPosition, speed * Time.deltaTime);
 
-            direction = targetPosition.x - transform.position.x;
-
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
-        }
-        else
-        {
-            direction = 0;
         }
     }
 
@@ -149,5 +142,10 @@ public class Enemy : MonoBehaviour
     {
         player.HpDown(damage);
         yield return new WaitForSeconds(attackTime);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, distance);
     }
 }

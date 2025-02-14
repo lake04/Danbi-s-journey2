@@ -23,7 +23,7 @@ public class FireEnemy : Enemy
 
     void Update()
     {
-        Move();
+
         float dist = Vector2.Distance(gameObject.transform.position, player.transform.position);
         if (dist <= attackDistance)
         {
@@ -36,6 +36,12 @@ public class FireEnemy : Enemy
                 StartCoroutine(Skil());
             }
         }
+    }
+
+    private void LateUpdate()
+    {
+         Move();
+
     }
 
     protected override IEnumerator Attack(float attackTime)

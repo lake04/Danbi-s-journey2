@@ -44,7 +44,8 @@ public class FirePlayer : Skil
                 enemy.StartCoroutine(enemy.FireDamage());
             }
         }
-           }
+    }
+    
     protected internal override void skil1()
     {
         Instantiate(fireBall, transform.position, Quaternion.identity);
