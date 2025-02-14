@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.UIElements;
 using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEngine.GraphicsBuffer;
 
 public class Enemy : MonoBehaviour
 {
@@ -29,6 +32,11 @@ public class Enemy : MonoBehaviour
     public int damage;
     float direction;
     private float lastDirection;
+
+    [SerializeField]
+    private GameObject fireEffect;
+    [SerializeField]
+    private AudioSource fireSound;
     #endregion
 
     #region 불 데미지 관련
@@ -44,6 +52,7 @@ public class Enemy : MonoBehaviour
         player = FindAnyObjectByType<Player>();
         _Player = FindAnyObjectByType<BasePlayer>();
         sp = GetComponent<SpriteRenderer>();
+        fireSound = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -59,35 +68,30 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-        Move();
-
-        if (direction != 0)
-        {
-            lastDirection = direction;
-        }
-
+     
         sp.flipX = true;
     }
   
 
     public void DestroyEnemy()
     {
-        if (player.type == PlayerType.basic)
-        {
-           StartCoroutine(_Player.PassiveSkill());
             Destroy(this.gameObject);
-        }
-        else Destroy(this.gameObject);
-
     }
 
     public IEnumerator FireDamage()
     {
         Debug.Log("FireDamage");
+        if (fireSound.isPlaying == false)
+        {
+            fireSound.Play();
+        }
         while (true)
         {
             if (this.maxFireCount <= this.fireCount) break;
             this.TakeDamage(0.5f);
+            Instantiate(fireEffect, new Vector2(transform.position.x, transform.position.y - 1), Quaternion.identity);
+           
+            
             yield return new WaitForSeconds(1.2f);
             this.fireCount++;
         }
@@ -98,13 +102,15 @@ public class Enemy : MonoBehaviour
     {
         if (hp >0)
         {
+            if (hp <= 0)
+            {
+                //if(player.type == PlayerType.basic) { StartCoroutine(_Player.PassiveSkill()); }
+                DestroyEnemy();
+            }
             hp -= damage;
             Debug.Log("TakeDamage");
             StartCoroutine(SkillDamagedRoutine(1f));
-            if(hp <= 0)
-        {
-                DestroyEnemy();
-            }
+           
         }
         if(hp <=0)
         {
@@ -121,18 +127,14 @@ public class Enemy : MonoBehaviour
 
     public void Move()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, isLayer);
-        if (hit.collider != null)
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, distance,isLayer);
+        Debug.Log($"{hit.collider.tag}");
+        Vector3 targetPosition = hit.collider.transform.position;
+       
+        if (hit.collider.CompareTag("Player"))  
         {
-            Vector3 targetPosition = hit.collider.transform.position;
+        this.transform.position = Vector2.MoveTowards(this.transform.position,targetPosition, speed * Time.deltaTime);
 
-            direction = targetPosition.x - transform.position.x;
-
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
-        }
-        else
-        {
-            direction = 0;
         }
     }
 
@@ -140,5 +142,10 @@ public class Enemy : MonoBehaviour
     {
         player.HpDown(damage);
         yield return new WaitForSeconds(attackTime);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, distance);
     }
 }

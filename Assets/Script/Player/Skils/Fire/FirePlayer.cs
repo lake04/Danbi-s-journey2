@@ -18,46 +18,39 @@ public class FirePlayer : Skil
     private Image skilimg1;
     [SerializeField]
     private Image skilimg2;
+   
 
     void Start()
     {
-        this.cooltime1 = 1f;
+        this.cooltime1 = 4f;
         this.cooltime2 = 7f;
         this.isPassive = true;
-        if (player == null)
-        {
-            player = FindObjectOfType<Player>();
-          
-        }
-
     }
 
     private void FixedUpdate()
     {
         if (isFireSp == true)
             Instantiate(fireBlanket, new Vector2(player.transform.position.x, player.transform.position.y-1), Quaternion.identity);
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy != null)
+
+        if (player.type == PlayerType.fire)
         {
-            // Enemy 객체의 코루틴 호출
-            enemy.StartCoroutine(enemy.FireDamage());
+            if (enemy != null)
+            {
+                enemy.StartCoroutine(enemy.FireDamage());
+            }
         }
-
     }
-    protected internal override IEnumerator skil1()
+    
+    protected internal override void skil1()
     {
-        player.stats.isShoting = false;
         Instantiate(fireBall, transform.position, Quaternion.identity);
-        collimage(this.cooltime1, skilimg1);
+        StartCoroutine(collimage(this.cooltime1, skilimg1, value => player.stats.isShoting = value));
 
-        yield return new WaitForSeconds(cooltime1);
-        player.stats.isShoting = true;
     }
 
     protected internal override IEnumerator skil2()
@@ -68,7 +61,7 @@ public class FirePlayer : Skil
         isFireSp = false;
 
         yield return new WaitForSeconds(cooltime2);
-        collimage(this.cooltime2, skilimg2);
+        StartCoroutine(collimage(this.cooltime2, skilimg2, value => isSkil2 = value));
 
         player.stats.isSkil2 = true;
     }
