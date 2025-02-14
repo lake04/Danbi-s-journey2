@@ -31,12 +31,11 @@ public enum PlayerType
     legend
 }
 #endregion
-//a
 
 public class Player : MonoBehaviour
 {
     public playerStats stats = new playerStats();
-    
+
     [Header("Type")]
     public PlayerType type;
     [SerializeField]
@@ -50,6 +49,10 @@ public class Player : MonoBehaviour
 
     private bool isJump;
     public int jumpPower = 5;
+
+    [SerializeField]
+    private SoundManager soundManager;
+
 
     #region АјАн 
     [Header("Attack")]
@@ -81,7 +84,7 @@ public class Player : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Q) && stats.isShoting == true)
         {
-            
+            soundManager.AudioPlay(0);
             if (type == PlayerType.basic)
             {
                 //StartCoroutine(basePlayer.skil1());
@@ -95,6 +98,7 @@ public class Player : MonoBehaviour
         
         if(Input.GetKeyDown(KeyCode.E) && stats.isSkil2 == true)
         {
+            soundManager.AudioPlay(1);
             Debug.Log("skil2");
             if(type == PlayerType.basic)
             {
@@ -105,7 +109,6 @@ public class Player : MonoBehaviour
                 StartCoroutine(firePlayer.skil2());
             }
         }
-        attack();
         Debug.Log($"isShoting:{stats.isShoting}");
     }
     void FixedUpdate()
