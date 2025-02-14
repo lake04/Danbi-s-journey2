@@ -15,7 +15,7 @@ public class EnemySpawn : MonoBehaviour
     {
 
         area = GetComponent<BoxCollider2D>();
-      
+
         StartCoroutine(EnanySpawn());
 
     }

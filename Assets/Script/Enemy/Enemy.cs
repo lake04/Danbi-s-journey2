@@ -48,12 +48,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        player = FindAnyObjectByType<Player>();
-        hp = maxHp;
-        rigidbody2D = GetComponent<Rigidbody2D>();
-        player = FindAnyObjectByType<Player>();
-        _Player = FindAnyObjectByType<BasePlayer>();
-        sp = GetComponent<SpriteRenderer>();
+       
     }
 
     
@@ -78,7 +73,6 @@ public class Enemy : MonoBehaviour
             Destroy(this.gameObject);
         }
         else Destroy(this.gameObject);
-
     }
 
     public IEnumerator FireDamage()
