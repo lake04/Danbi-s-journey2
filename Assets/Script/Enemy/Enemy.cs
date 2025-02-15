@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     #region enemyÁ¤º¸
     public float maxHp = 10;
     public float hp;
-    public bool isSkilldDamaged;
+    public bool isSkilldDamaged = true;
     
     public float distance;
     public LayerMask isLayer;
@@ -67,14 +67,13 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-     
         sp.flipX = true;
     }
   
 
     public void DestroyEnemy()
     {
-            Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     public IEnumerator FireDamage()
@@ -99,7 +98,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (hp >0)
+        if (hp >0 && isSkilldDamaged)
         {
             if (hp <= 0)
             {
@@ -119,9 +118,9 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator SkillDamagedRoutine(float skillTime)
     {
-        this.isSkilldDamaged = true;
-        yield return new WaitForSeconds(skillTime);
         this.isSkilldDamaged = false;
+        yield return new WaitForSeconds(skillTime);
+        this.isSkilldDamaged = true;
     }
 
     public void Move()

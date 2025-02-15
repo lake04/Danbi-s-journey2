@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class playerStats
 {
@@ -36,6 +35,7 @@ public class Player : MonoBehaviour
 {
     public playerStats stats = new playerStats();
 
+    #region Type
     [Header("Type")]
     public PlayerType type;
     [SerializeField]
@@ -51,14 +51,25 @@ public class Player : MonoBehaviour
     public int jumpPower = 5;
 
     [SerializeField]
+    private bool isDamageOn = true;
+    #endregion
+    [SerializeField]
     private SoundManager soundManager;
 
     public Slider hpSlider;
     public Image imageScreen;
-    public Image[] playerImg;
     public Sprite[] sprite;
 
+    #region ÆÐ¹è¾À
+    [SerializeField]
+    private Sprite[] loseImage;
+    [SerializeField]
+    private Image loseScrenn;
 
+    public Volume volume;
+    [SerializeField]
+    private DepthOfField dof;
+    #endregion
     #region °ø°Ý 
     [Header("Attack")]
     [SerializeField]
@@ -80,15 +91,17 @@ public class Player : MonoBehaviour
         basePlayer = GetComponent<BasePlayer>();
         firePlayer = GetComponent<FirePlayer>();
         imageScreen.enabled = false;
+        loseScrenn.enabled = false;
+      
     }
- 
+
     void Update()
     {
         hpSlider.value = stats.Hp / stats.maxHP;
-
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+           
         }
         if(Input.GetKeyDown(KeyCode.Q) && stats.isShoting == true)
         {
@@ -188,24 +201,30 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+
 
     #endregion
 
+    #region Hp
     public void HpDown(int damgae)
     {
-        if(stats.Hp > 0)
+        if(stats.Hp > 0 && isDamageOn)
         {
             Debug.Log("HpDown");
             stats.Hp-=damgae;
+            StartCoroutine(NoDamageTime());
+            StopCoroutine(HitAlphaAnimation());
+            StartCoroutine(HitAlphaAnimation());
         }
-        StopCoroutine(HitAlphaAnimation());
-        StartCoroutine(HitAlphaAnimation());
-        /* else Destroy(this.gameObject);*/
+       else  if (stats.Hp <=0)
+        {
+            LoseScreen();
+        }
     }
     private IEnumerator HitAlphaAnimation()
     {
         imageScreen.enabled = true;
+
         Color color = imageScreen.color;
         color.a = 0.4f;
         imageScreen.color = color;
@@ -217,4 +236,24 @@ public class Player : MonoBehaviour
             yield return null;
         }
     }
+    private IEnumerator NoDamageTime()
+    {
+        isDamageOn = false;
+        yield return new WaitForSeconds(3);
+        isDamageOn = true;
+    }
+    private void LoseScreen()
+    {
+        int random;
+        int result = UnityEngine.Random.Range(0, 4);
+        loseScrenn.sprite = loseImage[result];
+        loseScrenn.enabled = true;
+
+        if (volume.profile.TryGet(out dof))
+        {
+            dof.active = true;
+        }
+    }
+   
+    #endregion
 }
