@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Soldier : Enemy
 {
+    
      void Start()
     {
         this.maxHp = 10;
@@ -12,6 +13,8 @@ public class Soldier : Enemy
         this.attackDistance = 2f;
         this.attackTime = 2.5f;
         this.damage = 1;
+        this.stopMove = true;
+        this.stopTime = 1;
     }
 
     void Update()
@@ -20,7 +23,7 @@ public class Soldier : Enemy
         float dist = Vector2.Distance(gameObject.transform.position,player.transform.position);
         if (dist <= attackDistance)
         {
-            StartCoroutine(Attack(attackTime));
+            StartCoroutine(Attackstop(stopTime));
         }
     }
 
@@ -29,6 +32,12 @@ public class Soldier : Enemy
         yield return new WaitForSeconds(this.attackTime);
         Debug.Log("PlayerAttack");
         player.HpDown(this.damage);
-
+    }
+    public  IEnumerator Attackstop(int stopTime)
+    {
+        StartCoroutine(Attack(attackTime));
+        stopMove = false;
+        yield return new WaitForSeconds(this.stopTime);
+        stopMove = true;
     }
 }

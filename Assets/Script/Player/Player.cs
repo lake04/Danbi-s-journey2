@@ -95,18 +95,26 @@ public class Player : MonoBehaviour
                firePlayer.skil1();
             }
         }
-        
-        if(Input.GetKeyDown(KeyCode.E) && stats.isSkil2 == true)
+
+        if (Input.GetKeyDown(KeyCode.E) && stats.isSkil2 == true)
         {
             soundManager.AudioPlay(1);
             Debug.Log("skil2");
-            if(type == PlayerType.basic)
+            if (type == PlayerType.basic)
             {
                 StartCoroutine(basePlayer.skil2());
             }
             if (type == PlayerType.fire)
             {
                 StartCoroutine(firePlayer.skil2());
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("«ÿ¡¶");
+            if (type != PlayerType.basic)
+            {
+                type = PlayerType.basic;
             }
         }
         Debug.Log($"isShoting:{stats.isShoting}");

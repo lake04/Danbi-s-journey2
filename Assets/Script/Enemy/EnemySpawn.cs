@@ -6,24 +6,27 @@ using UnityEngine.Pool;
 public class EnemySpawn : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _enemyPrefab;
+    public GameObject _enemyPrefab;
+    public GameObject _enemyfirePrefab;
     private BoxCollider2D area;
-    private IObjectPool<Enemy> _pool;
+    public int enemycount;
+    public float spawncooltime;
+    public int randomenemy;
 
 
     private void Awake()
     {
-
+        enemycount = 10;
+        spawncooltime = 5f;
         area = GetComponent<BoxCollider2D>();
-
-        StartCoroutine(EnanySpawn());
-
     }
-
-
+    private void Start()
+    {
+        StartCoroutine(EnanySpawn());
+    }
     void Update()
     {
-
+        
     }
 
     private Enemy CreateEnemy()
@@ -31,6 +34,12 @@ public class EnemySpawn : MonoBehaviour
         Vector3 spawnPos = GetRandomPosition();
         Enemy enemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity).GetComponent<Enemy>();
         return enemy;
+    }
+    private Enemy CreatefireEnemy()
+    {
+        Vector3 spawnPos = GetRandomPosition();
+        FireEnemy fireenemy = Instantiate(_enemyfirePrefab, spawnPos, Quaternion.identity).GetComponent<FireEnemy>();
+        return fireenemy;
     }
 
     private void OnGetEnemy(Enemy enemy)
@@ -48,9 +57,19 @@ public class EnemySpawn : MonoBehaviour
     }
     private IEnumerator EnanySpawn()
     {
-        _pool = new ObjectPool<Enemy>(CreateEnemy, OnGetEnemy, OnRelwaseEnemy, OnDestroyEnemy, maxSize: 5);
-        var enemy = _pool.Get();
-        yield return new WaitForSeconds(1f);
+        for (int i = 0; i < enemycount; i++)
+        {
+            randomenemy = Random.Range(1, 3);
+            if(randomenemy == 1)
+            {
+                CreateEnemy();
+            }
+            else if(randomenemy == 2)
+            {
+                CreatefireEnemy();
+            }
+            yield return new WaitForSeconds(spawncooltime);
+        }
     }
     private Vector2 GetRandomPosition()
     {

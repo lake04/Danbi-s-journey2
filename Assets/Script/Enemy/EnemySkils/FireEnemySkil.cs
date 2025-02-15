@@ -5,10 +5,10 @@ using UnityEngine;
 public class FireEnemySkil : MonoBehaviour
 {
     [SerializeField]
-    public Player playerhp;
-    public GameObject enemy;
+    public GameObject player;
+    public GameObject fireenemy;
     private Rigidbody2D rb;
-    public float speed = 4f;
+    public float speed;
     public float maxDistance = 3f;
     public float fireBallCooltime = 7f;
     private int fireBallDamage = 3;
@@ -17,14 +17,17 @@ public class FireEnemySkil : MonoBehaviour
     private Vector3 startPoint;
     private void Awake()
     {
+        speed = 8f;
         rb = GetComponent<Rigidbody2D>();
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
-        spriteRenderer = enemy.GetComponent<Enemy>().sp;
+        fireenemy = GameObject.FindGameObjectWithTag("FireEnemy");
+        player = GameObject.FindGameObjectWithTag("Player");
+        spriteRenderer = fireenemy.GetComponent<FireEnemy>().renderer;
         Destroy(this.gameObject, 2f);
+        startPoint = transform.position;
     }
     void Start()
     {
-        if (spriteRenderer.flipX == false)
+        if (spriteRenderer.flipX == true)
         {
             rb.AddForce(Vector3.right * speed, ForceMode2D.Impulse);
         }
@@ -34,12 +37,12 @@ public class FireEnemySkil : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        transform.Translate(Vector3.right * speed * Time.deltaTime);
+       //MoveFireBall();
+        //transform.Translate(Vector3.right * speed * Time.deltaTime);
          if (Vector3.Distance(startPoint, transform.position) >= maxDistance)
-            {
+        {
                 Destroy(gameObject);
-            }
+        }
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -60,5 +63,13 @@ public class FireEnemySkil : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawCube(gameObject.transform.position, gameObject.transform.position);
     }
+    //public void MoveFireBall()
+    //{
+    //    if(GetComponent<FireEnemy>().shotFireBall == true)
+    //    {
+    //        rb.AddForce(Vector3.right * speed, ForceMode2D.Impulse);
+    //    }
+    //    else rb.AddForce(Vector3.left * speed, ForceMode2D.Impulse);
+    //}
 }
 

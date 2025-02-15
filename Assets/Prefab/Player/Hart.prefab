@@ -102,8 +102,9 @@ MonoBehaviour:
   player: {fileID: 0}
   speed: 10
   maxDistance: 5
-  fascinationCooltime: 10
+  fascinationCooltime: 5
   spriteRenderer: {fileID: 0}
+  playerst: {fileID: 0}
 --- !u!58 &-7215685858624428024
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -9,8 +9,14 @@ public class FireEnemy : Enemy
     private float fireBallDis = 3;
     private float coolTime = 7;
     public bool readyFireball = true;
+    public bool shotFireBall = true;
+    public SpriteRenderer renderer;
 
- 
+
+    public void Awake()
+    {
+        renderer = GetComponent<SpriteRenderer>();
+    }
     void Start()
     {
         this.maxHp = 14;
@@ -19,17 +25,26 @@ public class FireEnemy : Enemy
         this.attackDistance = 1.5f;
         this.attackTime = 4f;
         this.damage = 2;
+        this.stopTime = 1;
+        this.stopMove = true;
     }
 
-    void Update()
+    public void Update() 
     {
-
+        //if(renderer.flipX == true)
+        //{
+        //    shotFireBall = true;
+        //}
+        //else if(renderer.flipX == false)
+        //{
+        //    shotFireBall = false;
+        //}
         float dist = Vector2.Distance(gameObject.transform.position, player.transform.position);
         if (dist <= attackDistance)
         {
-            StartCoroutine(Attack(attackTime));
+            StartCoroutine(Attackstop(stopTime));
         }
-        else if (dist <= fireBallDis)
+        if (dist <= fireBallDis)
         {
             if (readyFireball == true)
             {
@@ -50,6 +65,13 @@ public class FireEnemy : Enemy
         Debug.Log("PlayerAttack");
         player.HpDown(this.damage);
     }
+    public IEnumerator Attackstop(int stopTime)
+    {
+        StartCoroutine(Attack(attackTime));
+        stopMove = false;
+        yield return new WaitForSeconds(this.stopTime);
+        stopMove = true;
+    }
 
     public IEnumerator Skil()
     {
@@ -57,5 +79,7 @@ public class FireEnemy : Enemy
         readyFireball = false;
         yield return new WaitForSeconds(coolTime);
         readyFireball = true;
+        Debug.Log("น฿ป็");
     }
+    
 }

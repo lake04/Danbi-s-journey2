@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Hart : MonoBehaviour
 {
-    [SerializeField]
-    public Penetratingbeadfascination Pf;
     public GameObject hart;
     public bool ready = true;
 

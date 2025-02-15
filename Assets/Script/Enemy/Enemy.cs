@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour
     public int damage;
     float direction;
     private float lastDirection;
+    public bool stopMove = true;
+    public int stopTime = 1;
 
     [SerializeField]
     private GameObject fireEffect;
@@ -131,11 +133,14 @@ public class Enemy : MonoBehaviour
         Debug.Log($"{hit.collider.tag}");
         Vector3 targetPosition = hit.collider.transform.position;
        
-        if (hit.collider.CompareTag("Player"))  
-        {
-        this.transform.position = Vector2.MoveTowards(this.transform.position,targetPosition, speed * Time.deltaTime);
+       if(stopMove == true)
+       {
+            if (hit.collider.CompareTag("Player"))
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, targetPosition, speed * Time.deltaTime);
 
-        }
+            }
+       }
     }
 
     protected virtual IEnumerator Attack(float attackTime)
@@ -143,9 +148,9 @@ public class Enemy : MonoBehaviour
         player.HpDown(damage);
         yield return new WaitForSeconds(attackTime);
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, distance);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawSphere(transform.position, distance);
+    //}
 }
