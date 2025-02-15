@@ -55,6 +55,9 @@ public class Player : MonoBehaviour
 
     public Slider hpSlider;
     public Image imageScreen;
+    public Image[] playerImg;
+    public Sprite[] sprite;
+
 
     #region АјАн 
     [Header("Attack")]

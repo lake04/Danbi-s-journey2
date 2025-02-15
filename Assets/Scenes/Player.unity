@@ -1470,7 +1470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &790988812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1503,7 +1503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2018,7 +2018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1566027156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2100,6 +2100,7 @@ GameObject:
   - component: {fileID: 1617771605}
   - component: {fileID: 1617771606}
   - component: {fileID: 1617771607}
+  - component: {fileID: 1617771608}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -2148,7 +2149,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec2fc10a2004c554ebae80c60f5a5201, type: 3}
+  m_Sprite: {fileID: 823523888, guid: 0e85f0fa732f02b4e97549538c4a1e16, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2197,7 +2198,9 @@ MonoBehaviour:
   jumpPower: 5
   soundManager: {fileID: 1920509063}
   hpSlider: {fileID: 1383331323}
-  imageScreen: {fileID: 0}
+  imageScreen: {fileID: 790988813}
+  playerImg: []
+  sprite: []
   boxSize: {x: 1, y: 1}
   rigntPos: {fileID: 315304560}
   leftPos: {fileID: 1480331917}
@@ -2263,8 +2266,8 @@ BoxCollider2D:
   m_Offset: {x: 0.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.24970755, y: 0.5046784}
-    oldSize: {x: 2.5, y: 2.5}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.65, y: 2.33}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2329,6 +2332,27 @@ MonoBehaviour:
   fireBall: {fileID: 5413965159273739357, guid: 7ac039f4d800ba1498a8c4fdea1a08a4, type: 3}
   skilimg1: {fileID: 655470725}
   skilimg2: {fileID: 488562138}
+--- !u!95 &1617771608
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617771599}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 69e99eadcb8de3c41b0195e0d6ad81b4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1672333202
 GameObject:
   m_ObjectHideFlags: 0
@@ -2590,7 +2614,7 @@ GameObject:
   - component: {fileID: 1850900994}
   - component: {fileID: 1850900995}
   m_Layer: 7
-  m_Name: Bass
+  m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
