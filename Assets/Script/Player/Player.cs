@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Net;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class playerStats
 {
     [Header("Player")]
-    public float maxHP = 10f;
+    public float maxHP = 50f;
     public float Hp;
     public float Mp;
     public float maxMp =10f;
@@ -53,6 +53,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private SoundManager soundManager;
 
+    public Slider hpSlider;
+    public Image imageScreen;
 
     #region АјАн 
     [Header("Attack")]
@@ -74,11 +76,14 @@ public class Player : MonoBehaviour
         type = PlayerType.basic;
         basePlayer = GetComponent<BasePlayer>();
         firePlayer = GetComponent<FirePlayer>();
+        imageScreen.enabled = false;
     }
  
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        hpSlider.value = stats.Hp / stats.maxHP;
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
@@ -191,6 +196,22 @@ public class Player : MonoBehaviour
             Debug.Log("HpDown");
             stats.Hp-=damgae;
         }
-       /* else Destroy(this.gameObject);*/
+        StopCoroutine(HitAlphaAnimation());
+        StartCoroutine(HitAlphaAnimation());
+        /* else Destroy(this.gameObject);*/
+    }
+    private IEnumerator HitAlphaAnimation()
+    {
+        imageScreen.enabled = true;
+        Color color = imageScreen.color;
+        color.a = 0.4f;
+        imageScreen.color = color;
+
+        while (color.a >= 0.0f)
+        {
+            color.a -= Time.deltaTime;
+            imageScreen.color = color;
+            yield return null;
+        }
     }
 }

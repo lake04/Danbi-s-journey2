@@ -30,8 +30,7 @@ public class Enemy : MonoBehaviour
     public float attackDistance;
     public float attackTime;
     public int damage;
-    float direction;
-    private float lastDirection;
+    public bool isAttack;
 
     [SerializeField]
     private GameObject fireEffect;
@@ -141,7 +140,9 @@ public class Enemy : MonoBehaviour
     protected virtual IEnumerator Attack(float attackTime)
     {
         player.HpDown(damage);
+        isAttack = false;
         yield return new WaitForSeconds(attackTime);
+        isAttack = true;
     }
     private void OnDrawGizmos()
     {

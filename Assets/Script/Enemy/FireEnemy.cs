@@ -25,7 +25,7 @@ public class FireEnemy : Enemy
     {
 
         float dist = Vector2.Distance(gameObject.transform.position, player.transform.position);
-        if (dist <= attackDistance)
+        if (dist <= attackDistance && isAttack == true)
         {
             StartCoroutine(Attack(attackTime));
         }
@@ -44,12 +44,7 @@ public class FireEnemy : Enemy
 
     }
 
-    protected override IEnumerator Attack(float attackTime)
-    {
-        yield return new WaitForSeconds(this.attackTime);
-        Debug.Log("PlayerAttack");
-        player.HpDown(this.damage);
-    }
+   
 
     public IEnumerator Skil()
     {
