@@ -9,6 +9,10 @@ public class Door : MonoBehaviour
     public Player player;
     [SerializeField]
     public CameraMove mainCamera;
+    [SerializeField]
+    private spawnManager spawnManager;
+    int a= 0;
+    int b = 1;
     public void Update()
     {
         
@@ -17,8 +21,11 @@ public class Door : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")) 
         {
-            player.transform.position = new Vector3(-3, 17, 0);
-            mainCamera.limitMinY = 13; mainCamera.limitMaxY = 23.5f;
+            player.transform.position = new Vector3(-3, transform.position.y+20, 0);
+            mainCamera.limitMinY = 13; mainCamera.limitMaxY += 13;
+            spawnManager.chageSpawn(a, b);
+            a++;
+            b++;
         }
     }
 }

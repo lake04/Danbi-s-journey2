@@ -24,10 +24,7 @@ public class EnemySpawn : MonoBehaviour
     {
         StartCoroutine(EnanySpawn());
     }
-    void Update()
-    {
-        
-    }
+  
 
     private Enemy CreateEnemy()
     {
@@ -42,15 +39,7 @@ public class EnemySpawn : MonoBehaviour
         return fireenemy;
     }
 
-    private void OnGetEnemy(Enemy enemy)
-    {
-        enemy.gameObject.SetActive(true);
-    }
-
-    private void OnRelwaseEnemy(Enemy enemy)
-    {
-        enemy.gameObject.SetActive(false);
-    }
+  
     private void OnDestroyEnemy(Enemy enemy)
     {
         Destroy(enemy.gameObject);
