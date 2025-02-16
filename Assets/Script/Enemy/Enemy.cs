@@ -31,6 +31,9 @@ public class Enemy : MonoBehaviour
     public float attackTime;
     public int damage;
     public bool isAttack;
+    public bool stopMove = true;
+    public int stopTime = 2;
+
 
     [SerializeField]
     private GameObject fireEffect;
@@ -128,11 +131,14 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, distance,isLayer);
         Debug.Log($"{hit.collider.tag}");
         Vector3 targetPosition = hit.collider.transform.position;
-       
-        if (hit.collider.CompareTag("Player"))  
-        {
-        this.transform.position = Vector2.MoveTowards(this.transform.position,targetPosition, speed * Time.deltaTime);
 
+        if (stopMove == true)
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                this.transform.position = Vector2.MoveTowards(this.transform.position, targetPosition, speed * Time.deltaTime);
+
+            }
         }
     }
 
@@ -147,5 +153,13 @@ public class Enemy : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawSphere(transform.position, distance);
+    }
+
+    public IEnumerator Attackstop(int stopTime)
+    {
+        StartCoroutine(Attack(attackTime));
+        stopMove = false;
+        yield return new WaitForSeconds(this.stopTime);
+        stopMove = true;
     }
 }
