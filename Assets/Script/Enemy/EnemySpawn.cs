@@ -28,14 +28,14 @@ public class EnemySpawn : MonoBehaviour
 
     private Enemy CreateEnemy()
     {
-        Vector3 spawnPos = GetRandomPosition();
-        Enemy enemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity).GetComponent<Enemy>();
+        //Vector3 spawnPos = GetRandomPosition();
+        Enemy enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
         return enemy;
     }
     private Enemy CreatefireEnemy()
     {
-        Vector3 spawnPos = GetRandomPosition();
-        FireEnemy fireenemy = Instantiate(_enemyfirePrefab, spawnPos, Quaternion.identity).GetComponent<FireEnemy>();
+        //Vector3 spawnPos = GetRandomPosition();
+        FireEnemy fireenemy = Instantiate(_enemyfirePrefab, transform.position, Quaternion.identity).GetComponent<FireEnemy>();
         return fireenemy;
     }
 
@@ -60,16 +60,16 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(spawncooltime);
         }
     }
-    private Vector2 GetRandomPosition()
-    {
-        Vector2 basePosition = transform.position; 
-        Vector2 size = area.size;                   
+    //private Vector2 GetRandomPosition()
+    //{
+    //    Vector2 basePosition = transform.position; 
+    //    Vector2 size = area.size;                   
 
-        float posX = Random.Range(-size.x / 2f, size.x / 2f);
-        float posY = Random.Range(-size.y / 2f, size.y / 2f);
+    //    float posX = Random.Range(-size.x / 2f, size.x / 2f);
+    //    float posY = Random.Range(-size.y / 2f, size.y / 2f);
 
-        Vector2 spawnPos = new Vector2(posX, posY);
+    //    Vector2 spawnPos = new Vector2(posX, posY);
 
-        return spawnPos;
-    }
+    //    return spawnPos;
+    //}
 }

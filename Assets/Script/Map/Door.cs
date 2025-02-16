@@ -22,7 +22,7 @@ public class Door : MonoBehaviour
         if (collision.gameObject.CompareTag("Player")) 
         {
             player.transform.position = new Vector3(-3, transform.position.y+20, 0);
-            mainCamera.limitMinY = 13; mainCamera.limitMaxY += 13;
+            mainCamera.limitMinY = 13; mainCamera.limitMaxY += 20;
             spawnManager.chageSpawn(a, b);
             a++;
             b++;

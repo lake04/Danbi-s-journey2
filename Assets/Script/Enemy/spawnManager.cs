@@ -21,6 +21,5 @@ public class spawnManager : MonoBehaviour
     {
         spawn[num].gameObject.SetActive(false);
         spawn[num2].gameObject.SetActive(true);
-        
     }
 }
