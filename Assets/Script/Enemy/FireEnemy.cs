@@ -31,26 +31,20 @@ public class FireEnemy : Enemy
 
     public void Update() 
     {
-        //if(renderer.flipX == true)
-        //{
-        //    shotFireBall = true;
-        //}
-        //else if(renderer.flipX == false)
-        //{
-        //    shotFireBall = false;
-        //}
+ 
         float dist = Vector2.Distance(gameObject.transform.position, player.transform.position);
         if (dist <= attackDistance)
         {
             StartCoroutine(Attackstop(stopTime));
         }
-        if (dist <= fireBallDis)
+        else if (dist <= fireBallDis)
         {
             if (readyFireball == true)
             {
                 StartCoroutine(Skil());
             }
         }
+        
     }
 
     private void LateUpdate()
@@ -81,5 +75,4 @@ public class FireEnemy : Enemy
         readyFireball = true;
         Debug.Log("น฿ป็");
     }
-    
 }
