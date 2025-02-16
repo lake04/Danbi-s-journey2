@@ -36,6 +36,11 @@ public class Boss : MonoBehaviour
     void Start()
     {
         hp = maxhp;
+
+        if(hp <= 0)
+        {
+
+        }
         
     }
 

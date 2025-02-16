@@ -19,11 +19,11 @@ public class UiMananger : MonoBehaviour
 
     public void play()
     {
-        SceneManager.LoadScene("Player");
+        SceneManager.LoadScene("Game");
     }
 
     public void Titie()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("Titile");
     }
 }
