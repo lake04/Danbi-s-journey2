@@ -11,11 +11,11 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private int maxhp = 200;
     [SerializeField]
-    private float colltime = 7;
+    private float colltime = 20;
     private bool isAttack = true;
 
     [SerializeField]
-    private float breatheColltime = 15;
+    private float breatheColltime = 40;
     private bool isbreathe = true;
     [SerializeField]
     private GameObject fire;
@@ -28,6 +28,9 @@ public class Boss : MonoBehaviour
     private Transform attackSpawn;
     [SerializeField]
     private Player player;
+
+    [SerializeField]
+    private AudioSource breths;
     
     void Start()
     {
@@ -41,16 +44,19 @@ public class Boss : MonoBehaviour
         {
            
             StartCoroutine(Attack(colltime));
+            Instantiate(attackEffect, attackSpawn);
+
         }
-        if (isbreathe)
+        if (isbreathe == true)
         {
             StartCoroutine(breathe(breatheColltime));
+            Instantiate(fire, breathSpawn);
+
         }
     }
 
      private IEnumerator Attack(float attackTime)
     {
-        Instantiate(attackEffect, attackSpawn);
         isAttack = false;
         yield return new WaitForSeconds(attackTime);
         isAttack = true;
@@ -58,8 +64,13 @@ public class Boss : MonoBehaviour
 
     private IEnumerator breathe(float breatheColltime)
     {
-        Instantiate(fire, breathSpawn);
+        if (breths.isPlaying == false)
+        {
+            breths.Play();
+        }
+        
         isbreathe = false;
+       
         yield return new WaitForSeconds(breatheColltime);
         isbreathe = true;
     }

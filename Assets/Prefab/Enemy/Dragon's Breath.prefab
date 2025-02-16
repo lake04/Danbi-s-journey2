@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3684589943977487124}
   - component: {fileID: 7331239099765177330}
   - component: {fileID: 4696769456020343893}
+  - component: {fileID: -4093748982257493703}
   m_Layer: 0
   m_Name: Dragon's Breath
   m_TagString: Untagged
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 6.6666665, y: 6.6666665}
   m_EdgeRadius: 0
+--- !u!114 &-4093748982257493703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709815790835261930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e09e577527fd834b9c0822af686c40b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireFlor: {fileID: 8767218095796405906, guid: 33c80b90f6a4fe1409248c24135e5ad3, type: 3}

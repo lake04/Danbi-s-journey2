@@ -65,6 +65,8 @@ public class Player : MonoBehaviour
     private Sprite[] loseImage;
     [SerializeField]
     private Image loseScrenn;
+    [SerializeField]
+    private GameObject button;
 
     public Volume volume;
     [SerializeField]
@@ -92,7 +94,7 @@ public class Player : MonoBehaviour
         firePlayer = GetComponent<FirePlayer>();
         imageScreen.enabled = false;
         loseScrenn.enabled = false;
-      
+        button.SetActive(false);
     }
 
     void Update()
@@ -244,11 +246,12 @@ public class Player : MonoBehaviour
     }
     private void LoseScreen()
     {
+        isDamageOn = false;
         int random;
         int result = UnityEngine.Random.Range(0, 4);
         loseScrenn.sprite = loseImage[result];
         loseScrenn.enabled = true;
-
+        button.SetActive(true);
         if (volume.profile.TryGet(out dof))
         {
             dof.active = true;

@@ -7,7 +7,7 @@ public class BossAttack : MonoBehaviour
     
     void Start()
     {
-        Destroy(this.gameObject,3);
+        Destroy(this.gameObject,2);
     }
 
     void Update()
@@ -24,3 +24,4 @@ public class BossAttack : MonoBehaviour
         }
     }
 }
+

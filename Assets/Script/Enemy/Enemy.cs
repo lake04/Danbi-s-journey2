@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (hp >0 && isSkilldDamaged)
+        if (hp >0 && isSkilldDamaged == true)
         {
             if (hp <= 0)
             {
