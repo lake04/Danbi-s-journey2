@@ -11,7 +11,7 @@ public class Door : MonoBehaviour
     public CameraMove mainCamera;
     [SerializeField]
     private spawnManager spawnManager;
-    int a= 0;
+    public int a = 0;
     int b = 1;
     [SerializeField]
     private Boss bossZone;
@@ -27,13 +27,32 @@ public class Door : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) 
+        if (collision.gameObject.CompareTag("Player"))
         {
-            player.transform.position = new Vector3(-3, transform.position.y+20, 0);
-            mainCamera.limitMinY = 13; mainCamera.limitMaxY += 20;
-            spawnManager.chageSpawn(a, b);
-            a++;
-            b++;
+            if (a == 0)//2째 스테이지
+            {
+                player.transform.position = new Vector3(-20f, 15f, 0);
+                mainCamera.limitMinY = 10.7f; mainCamera.limitMaxY = 22.5f;
+                spawnManager.chageSpawn(a, b);
+                a++;
+                b++;
+            }
+            else if (a == 1)//보스전
+            {
+                player.transform.position = new Vector3(-20f, 28.5f, 0);
+                mainCamera.limitMinY = 26.5f; mainCamera.limitMaxY = 40.9f;
+                a++;
+                b++;
+            }
+        }
+    }
+    private void OnBossZone()
+    {
+        if (a == 2)
+        {
+            bossZone.isBossZone = true;
+            bossBam.Play();
+            bam.Stop();
         }
     }
 
