@@ -14,7 +14,7 @@ public class FireFlor : Skil
     }
     void Start()
     {
-       Destroy(this.gameObject,0.5f);
+       Destroy(this.gameObject,0.2f);
     }
 
     void Update()

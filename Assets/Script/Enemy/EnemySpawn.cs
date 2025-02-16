@@ -73,10 +73,9 @@ public class EnemySpawn : MonoBehaviour
     }
     private Vector2 GetRandomPosition()
     {
-        Vector2 basePosition = transform.position;  //오브젝트의 위치
-        Vector2 size = area.size;                   //box colider2d, 즉 맵의 크기 벡터
+        Vector2 basePosition = transform.position; 
+        Vector2 size = area.size;                   
 
-        //x, y축 랜덤 좌표 얻기
         float posX = Random.Range(-size.x / 2f, size.x / 2f);
         float posY = Random.Range(-size.y / 2f, size.y / 2f);
 

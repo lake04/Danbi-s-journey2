@@ -21,6 +21,7 @@ public class FireEnemy : Enemy
         this.damage = 2;
         this.stopTime = 5;
         this.stopMove = true;
+        this.isSkilldDamaged = true;
     }
 
     void Update()

@@ -71,7 +71,7 @@ public class penetratingbead : MonoBehaviour
     private IEnumerator skil1(Collider2D collider)
     {
         Debug.Log("skil1");
-        if (collider.CompareTag("Enemy"))
+        if (collider.CompareTag("Enemy") || collider.CompareTag("FireEnemy"))
         {
             Enemy enemy = collider.GetComponent<Enemy>();
 

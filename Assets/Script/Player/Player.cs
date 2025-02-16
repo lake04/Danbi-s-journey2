@@ -46,6 +46,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rigidbody2D;
     public SpriteRenderer spriteRenderer;
     public Vector3 dir;
+    [SerializeField]
+    private GameObject attackEffect;
 
     private bool isJump;
     public int jumpPower = 5;
@@ -140,7 +142,7 @@ public class Player : MonoBehaviour
                 type = PlayerType.basic;
             }
         }
-        Debug.Log($"isShoting:{stats.isShoting}");
+        attack();
     }
     void FixedUpdate()
     {
@@ -184,22 +186,24 @@ public class Player : MonoBehaviour
 
             if (spriteRenderer.flipX == true)
             {
-                Collider2D[] collider2D = Physics2D.OverlapBoxAll(leftPos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2D)
-                {
-                    if (collider.tag == "Enemy") collider.GetComponent<Enemy>().TakeDamage(2);
-                }
+                Instantiate(attackEffect, rigntPos.position, Quaternion.identity);
+                //Collider2D[] collider2D = Physics2D.OverlapBoxAll(leftPos.position, boxSize, 0);
+                //foreach (Collider2D collider in collider2D)
+                //{
+                //    if (collider.tag == "Enemy") collider.GetComponent<Enemy>().TakeDamage(2);
+                //}
                 stats.attackspeed = 0.5f;
                 Debug.Log("leftAttack");
             }
             if (spriteRenderer.flipX == false)
             {
-                Collider2D[] collider2D = Physics2D.OverlapBoxAll(rigntPos.position, boxSize, 0);
-                foreach (Collider2D collider in collider2D)
-                {
-                    if (collider.tag == "Enemy") collider.GetComponent<Enemy>().TakeDamage(2);
+                Instantiate(attackEffect, leftPos.position, Quaternion.identity);
+                //Collider2D[] collider2D = Physics2D.OverlapBoxAll(rigntPos.position, boxSize, 0);
+                //foreach (Collider2D collider in collider2D)
+                //{
+                //    if (collider.tag == "Enemy") collider.GetComponent<Enemy>().TakeDamage(2);
 
-                }
+                //}
                 stats.attackspeed = 0.5f;
                 Debug.Log("RightAttack");
             }
