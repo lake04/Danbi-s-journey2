@@ -2,16 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Boss : MonoBehaviour
 {
     public bool isBossZone = false;
     [SerializeField]
-    private int damage = 5;
+    private float damage = 5;
     [SerializeField]
-    private int hp;
+    private float hp;
     [SerializeField]
-    private int maxhp = 100;
+    private float maxhp = 100;
     [SerializeField]
     private float colltime = 20;
     private bool isAttack = true;
@@ -33,7 +34,11 @@ public class Boss : MonoBehaviour
 
     [SerializeField]
     private AudioSource breths;
-    
+
+    [SerializeField]
+    public bool isSkilldDamaged = true;
+
+
     void Start()
     {
         hp = maxhp;
@@ -47,19 +52,23 @@ public class Boss : MonoBehaviour
 
     void Update()
     {
-        if(isAttack)
+        if(isBossZone == true)
         {
-           
-            StartCoroutine(Attack(colltime));
-            Instantiate(attackEffect, attackSpawn);
+            if (isAttack)
+            {
 
-        }
-        if (isbreathe == true)
-        {
-            StartCoroutine(breathe(breatheColltime));
-            Instantiate(fire, breathSpawn);
+                StartCoroutine(Attack(colltime));
+                Instantiate(attackEffect, new Vector2(player.transform.position.x + 4.5f, player.transform.position.y), Quaternion.identity);
 
+            }
+            if (isbreathe == true)
+            {
+                StartCoroutine(breathe(breatheColltime));
+                Instantiate(fire, breathSpawn);
+
+            }
         }
+        
     }
 
      private IEnumerator Attack(float attackTime)
@@ -80,5 +89,30 @@ public class Boss : MonoBehaviour
        
         yield return new WaitForSeconds(breatheColltime);
         isbreathe = true;
+    }
+    public void TakeDamage(float damage)
+    {
+        if (hp > 0 && isSkilldDamaged == true)
+        {
+            if (hp <= 0)
+            {
+                SceneManager.LoadScene("chapter 2");
+            }
+            hp -= damage;
+            Debug.Log("TakeDamage");
+            StartCoroutine(SkillDamagedRoutine(1f));
+
+        }
+        if (hp <= 0)
+        {
+            SceneManager.LoadScene("chapter 2");
+        }
+    }
+
+     public IEnumerator SkillDamagedRoutine(float skillTime)
+    {
+        this.isSkilldDamaged = false;
+        yield return new WaitForSeconds(skillTime);
+        this.isSkilldDamaged = true;
     }
 }

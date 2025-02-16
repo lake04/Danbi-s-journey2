@@ -80,6 +80,15 @@ public class penetratingbead : MonoBehaviour
                 enemy.TakeDamage(stats.damag);
             }
         }
+        if (collider.CompareTag("Boss"))
+        {
+            Boss boss = collider.GetComponent<Boss>();
+
+            if (boss.isSkilldDamaged == true)
+            {
+                boss.TakeDamage(stats.damag);
+            }
+        }
         yield return new WaitForSeconds(cooltime);
     }
 

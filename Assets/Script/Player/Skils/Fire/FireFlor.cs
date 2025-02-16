@@ -38,6 +38,15 @@ public class FireFlor : Skil
                 enemy.TakeDamage(player.stats.damag);
             }
         }
+        if (collider.CompareTag("Boss"))
+        {
+            Boss boss = collider.GetComponent<Boss>();
+
+            if (boss.isSkilldDamaged == true)
+            {
+                boss.TakeDamage(3);
+            }
+        }
         yield return new WaitForSeconds(cooltime1);
     }
 }

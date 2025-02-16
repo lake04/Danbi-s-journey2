@@ -56,13 +56,5 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OnBossZone()
-    {
-        if(a == 2)
-        {
-            bossZone.isBossZone = true;
-            bossBam.Play();
-            bam.Stop();
-        }
-    }
+   
 }

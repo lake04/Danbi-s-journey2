@@ -4386,7 +4386,7 @@ GameObject:
   - component: {fileID: 1850900996}
   m_Layer: 7
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4556,6 +4556,7 @@ MonoBehaviour:
   attackSpawn: {fileID: 105381130}
   player: {fileID: 1617771602}
   breths: {fileID: 930280653}
+  isSkilldDamaged: 1
 --- !u!1 &1920509062
 GameObject:
   m_ObjectHideFlags: 0
