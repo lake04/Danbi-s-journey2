@@ -15,6 +15,7 @@ public class Soldier : Enemy
         this.damage = 1;
         this.stopMove = true;
         this.stopTime = 1;
+        this.isSkilldDamaged = true;
     }
 
     void Update()

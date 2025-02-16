@@ -24,33 +24,22 @@ public class EnemySpawn : MonoBehaviour
     {
         StartCoroutine(EnanySpawn());
     }
-    void Update()
-    {
-        
-    }
+  
 
     private Enemy CreateEnemy()
     {
-        //Vector3 spawnPos = GetRandomPosition();
-        Enemy enemy = Instantiate(_enemyPrefab, transform.position, Quaternion.identity).GetComponent<Enemy>();
+        Vector3 spawnPos = GetRandomPosition();
+        Enemy enemy = Instantiate(_enemyPrefab, spawnPos, Quaternion.identity).GetComponent<Enemy>();
         return enemy;
     }
     private Enemy CreatefireEnemy()
     {
-        //Vector3 spawnPos = GetRandomPosition();
-        FireEnemy fireenemy = Instantiate(_enemyfirePrefab, transform.position, Quaternion.identity).GetComponent<FireEnemy>();
+        Vector3 spawnPos = GetRandomPosition();
+        FireEnemy fireenemy = Instantiate(_enemyfirePrefab, spawnPos, Quaternion.identity).GetComponent<FireEnemy>();
         return fireenemy;
     }
 
-    private void OnGetEnemy(Enemy enemy)
-    {
-        enemy.gameObject.SetActive(true);
-    }
-
-    private void OnRelwaseEnemy(Enemy enemy)
-    {
-        enemy.gameObject.SetActive(false);
-    }
+  
     private void OnDestroyEnemy(Enemy enemy)
     {
         Destroy(enemy.gameObject);
@@ -71,17 +60,16 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(spawncooltime);
         }
     }
-    //private Vector2 GetRandomPosition()
-    //{
-    //    Vector2 basePosition = transform.position;  //오브젝트의 위치
-    //    Vector2 size = area.size;                   //box colider2d, 즉 맵의 크기 벡터
+    private Vector2 GetRandomPosition()
+    {
+        Vector2 basePosition = transform.position; 
+        Vector2 size = area.size;                   
 
-    //    //x, y축 랜덤 좌표 얻기
-    //    float posX = Random.Range(-size.x / 2f, size.x / 2f);
-    //    float posY = Random.Range(-size.y / 2f, size.y / 2f);
+        float posX = Random.Range(-size.x / 2f, size.x / 2f);
+        float posY = Random.Range(-size.y / 2f, size.y / 2f);
 
-    //    Vector2 spawnPos = new Vector2(posX, posY);
+        Vector2 spawnPos = new Vector2(posX, posY);
 
-    //    return spawnPos;
-    //}
+        return spawnPos;
+    }
 }
