@@ -1,29 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class UiMananger : MonoBehaviour
+public class attackEffect : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(this.gameObject, 0.4f);
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void play()
-    {
-        SceneManager.LoadScene("Player");
-    }
-
-    public void Titie()
-    {
-        SceneManager.LoadScene("Game");
     }
 }

@@ -735,7 +735,7 @@ Transform:
   m_GameObject: {fileID: 352393856}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.4, y: -2.5, z: -0.008540408}
+  m_LocalPosition: {x: 1.72, y: -2.5, z: -0.008540408}
   m_LocalScale: {x: 15, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1912,7 +1912,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5480ab78ffb311b47b43d92a28e1c4e5, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3363,6 +3363,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dab78f27d96b164e9ce1d242b70f45c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBossZone: 0
   damage: 5
   hp: 0
   maxhp: 200
@@ -3624,7 +3625,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 7b92f3032c10ec04e9d8288672467517, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0

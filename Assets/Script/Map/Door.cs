@@ -13,9 +13,17 @@ public class Door : MonoBehaviour
     private spawnManager spawnManager;
     int a= 0;
     int b = 1;
+    [SerializeField]
+    private Boss bossZone;
+    [SerializeField]
+    private AudioSource bam;
+    [SerializeField]
+    private AudioSource bossBam;
+
+
     public void Update()
     {
-        
+        OnBossZone();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -26,6 +34,16 @@ public class Door : MonoBehaviour
             spawnManager.chageSpawn(a, b);
             a++;
             b++;
+        }
+    }
+
+    private void OnBossZone()
+    {
+        if(a == 2)
+        {
+            bossZone.isBossZone = true;
+            bossBam.Play();
+            bam.Stop();
         }
     }
 }

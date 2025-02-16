@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public bool isBossZone = false;
     [SerializeField]
     private int damage = 5;
     [SerializeField]

@@ -115,10 +115,15 @@ MonoBehaviour:
   attackDistance: 5
   attackTime: 0
   damage: 0
+  isAttack: 0
+  stopMove: 1
+  stopTime: 2
+  enemyAttackEffect: {fileID: 3563252694840108334, guid: 5b103c3dfdf7e5248b9ca1786f783528, type: 3}
   fireEffect: {fileID: 8767218095796405906, guid: a57ea0d8bdd8fcc469c6e3a394c6fce4, type: 3}
   fireSound: {fileID: -1411663731807168534}
   fireCount: 0
   maxFireCount: 5
+  enemyAttackE: {fileID: 3563252694840108334, guid: 5b103c3dfdf7e5248b9ca1786f783528, type: 3}
 --- !u!61 &7815357781838522579
 BoxCollider2D:
   m_ObjectHideFlags: 0

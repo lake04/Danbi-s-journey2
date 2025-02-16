@@ -190,12 +190,14 @@ MonoBehaviour:
   isAttack: 0
   stopMove: 0
   stopTime: 2
+  enemyAttackEffect: {fileID: 3563252694840108334, guid: 5b103c3dfdf7e5248b9ca1786f783528, type: 3}
   fireEffect: {fileID: 8767218095796405906, guid: a57ea0d8bdd8fcc469c6e3a394c6fce4, type: 3}
   fireSound: {fileID: -534719156440920243}
   fireCount: 0
   maxFireCount: 5
   enemyFireBall: {fileID: 9074898757838772943, guid: 1ccc2f978bad134439903cee1e4e5d6a, type: 3}
   readyFireball: 1
+  enemyAttack: {fileID: 3563252694840108334, guid: 5b103c3dfdf7e5248b9ca1786f783528, type: 3}
 --- !u!82 &-534719156440920243
 AudioSource:
   m_ObjectHideFlags: 0

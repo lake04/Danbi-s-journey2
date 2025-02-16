@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour
     public bool isAttack;
     public bool stopMove = true;
     public int stopTime = 2;
+    public GameObject enemyAttackEffect;
+    
 
 
     [SerializeField]
@@ -105,7 +107,7 @@ public class Enemy : MonoBehaviour
         {
             if (hp <= 0)
             {
-                //if(player.type == PlayerType.basic) { StartCoroutine(_Player.PassiveSkill()); }
+                if(player.type == PlayerType.basic) { StartCoroutine(_Player.PassiveSkill()); }
                 DestroyEnemy();
             }
             hp -= damage;
@@ -129,7 +131,6 @@ public class Enemy : MonoBehaviour
     public void Move()
     {
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, distance,isLayer);
-        Debug.Log($"{hit.collider.tag}");
         Vector3 targetPosition = hit.collider.transform.position;
 
         if (stopMove == true)
@@ -149,11 +150,11 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(attackTime);
         isAttack = true;
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, distance);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawSphere(transform.position, distance);
+    //}
 
     public IEnumerator Attackstop(int stopTime)
     {
