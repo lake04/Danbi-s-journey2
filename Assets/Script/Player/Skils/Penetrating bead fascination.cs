@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Penetratingbeadfascination : MonoBehaviour
 {
@@ -50,6 +51,7 @@ public class Penetratingbeadfascination : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("매혹");
+            playerst.spriteRenderer.sprite = playerst.sprite[0];
             playerst.type = PlayerType.basic;
             Destroy(gameObject);
         }
@@ -57,6 +59,7 @@ public class Penetratingbeadfascination : MonoBehaviour
         {
             Debug.Log("매혹");
             playerst.type = PlayerType.fire;
+            playerst.spriteRenderer.sprite = playerst.sprite[1];
             Destroy(gameObject);
         }
         yield return new WaitForSeconds(fascinationCooltime);

@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     #region enemyÁ¤º¸
     public float maxHp = 10;
     public float hp;
-    public bool isSkilldDamaged;
+    public bool isSkilldDamaged = true;
     
     public float distance;
     public LayerMask isLayer;
@@ -30,10 +30,10 @@ public class Enemy : MonoBehaviour
     public float attackDistance;
     public float attackTime;
     public int damage;
-    float direction;
-    private float lastDirection;
+    public bool isAttack;
     public bool stopMove = true;
-    public int stopTime = 1;
+    public int stopTime = 2;
+
 
     [SerializeField]
     private GameObject fireEffect;
@@ -70,14 +70,13 @@ public class Enemy : MonoBehaviour
     
     private void Update()
     {
-     
         sp.flipX = true;
     }
   
 
     public void DestroyEnemy()
     {
-            Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     public IEnumerator FireDamage()
@@ -102,7 +101,7 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (hp >0)
+        if (hp >0 && isSkilldDamaged == true)
         {
             if (hp <= 0)
             {
@@ -122,9 +121,9 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator SkillDamagedRoutine(float skillTime)
     {
-        this.isSkilldDamaged = true;
-        yield return new WaitForSeconds(skillTime);
         this.isSkilldDamaged = false;
+        yield return new WaitForSeconds(skillTime);
+        this.isSkilldDamaged = true;
     }
 
     public void Move()
@@ -132,25 +131,35 @@ public class Enemy : MonoBehaviour
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, distance, Vector2.one, distance,isLayer);
         Debug.Log($"{hit.collider.tag}");
         Vector3 targetPosition = hit.collider.transform.position;
-       
-       if(stopMove == true)
-       {
+
+        if (stopMove == true)
+        {
             if (hit.collider.CompareTag("Player"))
             {
                 this.transform.position = Vector2.MoveTowards(this.transform.position, targetPosition, speed * Time.deltaTime);
 
             }
-       }
+        }
     }
 
     protected virtual IEnumerator Attack(float attackTime)
     {
         player.HpDown(damage);
+        isAttack = false;
         yield return new WaitForSeconds(attackTime);
+        isAttack = true;
     }
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = Color.yellow;
-    //    Gizmos.DrawSphere(transform.position, distance);
-    //}
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, distance);
+    }
+
+    public IEnumerator Attackstop(int stopTime)
+    {
+        StartCoroutine(Attack(attackTime));
+        stopMove = false;
+        yield return new WaitForSeconds(this.stopTime);
+        stopMove = true;
+    }
 }
