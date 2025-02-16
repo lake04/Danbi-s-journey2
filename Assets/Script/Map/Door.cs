@@ -19,17 +19,23 @@ public class Door : MonoBehaviour
     private AudioSource bam;
     [SerializeField]
     private AudioSource bossBam;
+    [SerializeField]
+    private Enemy enemy;
 
 
+    public void Awake()
+    {
+        enemy = FindAnyObjectByType<Enemy>();
+    }
     public void Update()
     {
         OnBossZone();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (a == 0)//2째 스테이지
+            if (a == 0 && enemy.DieEnemy == 10)//2째 스테이지
             {
                 player.transform.position = new Vector3(-20f, 15f, 0);
                 mainCamera.limitMinY = 10.7f; mainCamera.limitMaxY = 22.5f;
@@ -37,7 +43,7 @@ public class Door : MonoBehaviour
                 a++;
                 b++;
             }
-            else if (a == 1)//보스전
+            else if (a == 1 && enemy.DieEnemy == 30)//보스전
             {
                 player.transform.position = new Vector3(-20f, 28.5f, 0);
                 mainCamera.limitMinY = 26.5f; mainCamera.limitMaxY = 40.9f;
@@ -49,16 +55,6 @@ public class Door : MonoBehaviour
     private void OnBossZone()
     {
         if (a == 2)
-        {
-            bossZone.isBossZone = true;
-            bossBam.Play();
-            bam.Stop();
-        }
-    }
-
-    private void OnBossZone()
-    {
-        if(a == 2)
         {
             bossZone.isBossZone = true;
             bossBam.Play();
