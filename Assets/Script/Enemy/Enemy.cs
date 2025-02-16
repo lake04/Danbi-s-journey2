@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField]
     public BasePlayer _Player;
+    public int DieEnemy = 0;
 
     #region enemy¡§∫∏
     public float maxHp = 10;
@@ -79,6 +80,7 @@ public class Enemy : MonoBehaviour
     public void DestroyEnemy()
     {
         Destroy(this.gameObject);
+        DieEnemy++;
     }
 
     public IEnumerator FireDamage()
