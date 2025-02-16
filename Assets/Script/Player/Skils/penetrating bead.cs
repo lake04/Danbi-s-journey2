@@ -75,7 +75,7 @@ public class penetratingbead : MonoBehaviour
         {
             Enemy enemy = collider.GetComponent<Enemy>();
 
-            if (!enemy.isSkilldDamaged)
+            if (enemy.isSkilldDamaged == true)
             {
                 enemy.TakeDamage(stats.damag);
             }

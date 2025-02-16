@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7672961300724554820}
   - component: {fileID: 4889574554057570841}
-  - component: {fileID: -4467600478508954621}
   - component: {fileID: 4987720858349330189}
+  - component: {fileID: -6011085190999950901}
   m_Layer: 0
-  m_Name: FireEffect
+  m_Name: BossFireFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.63, y: -2.58, z: 0}
-  m_LocalScale: {x: 0.4, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 1217930430, guid: 1e0ccb7bc420f6c46a6a0f130b04764d, type: 3}
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 1082101394, guid: 1e0ccb7bc420f6c46a6a0f130b04764d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-4467600478508954621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8767218095796405906}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c62ba4920e0f6b40bada5ddc7bbc0ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooltime1: 0
-  cooltime2: 0
-  isSkil2: 1
-  isPassive: 0
 --- !u!61 &4987720858349330189
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -138,7 +122,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.44, y: 0.88}
+    oldSize: {x: 2.49, y: 0.37}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -147,3 +131,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.44, y: 0.88}
   m_EdgeRadius: 0
+--- !u!114 &-6011085190999950901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8767218095796405906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea8ced51df53f249a233bb7f1659cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

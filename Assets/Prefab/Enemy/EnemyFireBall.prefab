@@ -134,8 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4e0ecbcbcfb724994ed40f1e3639da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerhp: {fileID: 0}
-  player: {fileID: 0}
+  enemy: {fileID: 2621095431269154045, guid: d3979924638adbe4899edfed843d41b9, type: 3}
   speed: 4
   maxDistance: 3
   fireBallCooltime: 7
