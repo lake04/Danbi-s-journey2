@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss : MonoBehaviour
 {
+    public bool isBossZone = false;
     [SerializeField]
     private int damage = 5;
     [SerializeField]
@@ -31,18 +32,18 @@ public class Boss : MonoBehaviour
 
     [SerializeField]
     private AudioSource breths;
-    
+
     void Start()
     {
         hp = maxhp;
-        
+
     }
 
     void Update()
     {
-        if(isAttack)
+        if (isAttack)
         {
-           
+
             StartCoroutine(Attack(colltime));
             Instantiate(attackEffect, attackSpawn);
 
@@ -55,7 +56,7 @@ public class Boss : MonoBehaviour
         }
     }
 
-     private IEnumerator Attack(float attackTime)
+    private IEnumerator Attack(float attackTime)
     {
         isAttack = false;
         yield return new WaitForSeconds(attackTime);
@@ -68,9 +69,9 @@ public class Boss : MonoBehaviour
         {
             breths.Play();
         }
-        
+
         isbreathe = false;
-       
+
         yield return new WaitForSeconds(breatheColltime);
         isbreathe = true;
     }
