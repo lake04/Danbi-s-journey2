@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Boss : MonoBehaviour
     [SerializeField]
     private int hp;
     [SerializeField]
-    private int maxhp = 200;
+    private int maxhp = 100;
     [SerializeField]
     private float colltime = 20;
     private bool isAttack = true;
@@ -39,7 +40,7 @@ public class Boss : MonoBehaviour
 
         if(hp <= 0)
         {
-
+            SceneManager.LoadScene("chapter 2");
         }
         
     }
